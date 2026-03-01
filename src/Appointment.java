@@ -1,5 +1,5 @@
 import java.util.*;
-
+//Updated Appointment Class
 public class Appointment {
 
     private static int counter = 1;
@@ -14,6 +14,7 @@ public class Appointment {
         this.date = date;
         this.time = time;
     }
+
 
     public void createAppointment(Owner owner, Animal pet) {
 
