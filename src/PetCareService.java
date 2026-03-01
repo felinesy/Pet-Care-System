@@ -1,5 +1,5 @@
-Interface PetCareService {
-Void feedPet(Animal animal);
-Void playWithPet(Animal animal);
-Void groomPet(Animal animal);
+interface PetCareService {
+    void feedPet(Animal animal);
+    void playWithPet(Animal animal);
+    void groomPet(Animal animal);
 }

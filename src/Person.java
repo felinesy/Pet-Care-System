@@ -1,16 +1,16 @@
-Abstract class Person {
+abstract class Person {
 
-    Private final int id;
-    Private final String name;
-    Private final String contact;
+    private final int id;
+    private final String name;
+    private final String contact;
 
-    Public Person(int id, String name, String contact) {
-        This.id = id;
-        This.name = name;
-        This.contact = contact;
+    public Person(int id, String name, String contact) {
+        this.id = id;
+        this.name = name;
+        this.contact = contact;
     }
 
-    Public int getId() { return id; }
-    Public String getName() { return name; }
-    Public String getContact() { return contact; }
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public String getContact() { return contact; }
 }

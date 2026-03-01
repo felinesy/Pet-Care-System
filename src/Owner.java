@@ -1,34 +1,37 @@
+import java.util.*;
 
-Import java.util.*;
-Class Owner extends Person implements PetCareService {
-    Private final String password;
-    Private final List<Animal> pets = new ArrayList<>();
-    Public Owner(int id, String name, String contact, String password) {
-        Super(id, name, contact);
-        This.password = password;
-    }
-    Public boolean login(String pass) {
-        Return password.equals(pass);
-    }
+class Owner extends Person implements PetCareService {
 
-    Public void adoptPet(Animal pet) {
-        Pets.add(pet);
-        System.out.println(getName() + “ adopted “ + pet.getName());
+    private final String password;
+    private final List<Animal> pets = new ArrayList<>();
+
+    public Owner(int id, String name, String contact, String password) {
+        super(id, name, contact);
+        this.password = password;
     }
 
-    Public List<Animal> getPets() {
-        Return pets;
+    public boolean login(String pass) {
+        return password.equals(pass);
     }
 
-    Public void feedPet(Animal animal) {
-        System.out.println(getName() + “ feeds “ + animal.getName());
+    public void adoptPet(Animal pet) {
+        pets.add(pet);
+        System.out.println(getName() + " adopted " + pet.getName());
     }
 
-    Public void playWithPet(Animal animal) {
-        System.out.println(getName() + “ plays with “ + animal.getName());
+    public List<Animal> getPets() {
+        return pets;
     }
 
-    Public void groomPet(Animal animal) {
-        System.out.println(getName() + “ grooms “ + animal.getName());
+    public void feedPet(Animal animal) {
+        System.out.println(getName() + " feeds " + animal.getName());
+    }
+
+    public void playWithPet(Animal animal) {
+        System.out.println(getName() + " plays with " + animal.getName());
+    }
+
+    public void groomPet(Animal animal) {
+        System.out.println(getName() + " grooms " + animal.getName());
     }
 }
