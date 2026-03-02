@@ -2,7 +2,7 @@
 OOP Group Project — Pet Care System
 
 OOP Principles Used:
- - Encapsulation
+- Encapsulation
 - Inheritance
 - Polymorphism
 - Abstraction
