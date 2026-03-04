@@ -6,14 +6,18 @@ public class Main {
         System.out.println("-------------------------------------");
     }
 
-    static int readInt(Scanner sc) {
-        while (!sc.hasNextInt()) {
-            System.out.print("Enter number: ");
-            sc.next();
+    static int readInt(Scanner sc, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            if (sc.hasNextInt()) {
+                int val = sc.nextInt();
+                sc.nextLine();
+                return val;
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                sc.nextLine();
+            }
         }
-        int value = sc.nextInt();
-        sc.nextLine();
-        return value;
     }
 
     public static void main(String[] args) {
@@ -21,28 +25,25 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         Veterinarian vet = new Veterinarian(1, "Santos", "0999");
-        Clinic clinic = new Clinic("Happy Paws Clinic", "City");
+        Clinic clinic = new Clinic("Pet Care Clinic", "City");
         MedicalRecord record = new MedicalRecord();
 
         List<Owner> owners = new ArrayList<>();
         Owner currentOwner = null;
 
-        int choice;
-
         while (true) {
 
             if (currentOwner == null) {
 
-                System.out.println("\n==============================");
-                System.out.println("       PET CARE SYSTEM");
-                System.out.println("==============================");
+                System.out.println("\n===========================");
+                System.out.println("      1PET CARE SYSTEM");
+                System.out.println("===========================");
 
                 System.out.println("1. Register");
                 System.out.println("2. Login");
                 System.out.println("3. Exit");
-                System.out.print("Choice: ");
 
-                choice = readInt(sc);
+                int choice = readInt(sc, "Choice: ");
 
                 switch (choice) {
 
@@ -65,9 +66,9 @@ public class Main {
                         );
 
                         owners.add(owner);
-                        System.out.println("Registration successful.");
-                        break;
 
+                        System.out.println("Registration successful!");
+                        break;
 
                     case 2:
 
@@ -90,10 +91,9 @@ public class Main {
                         if (currentOwner == null)
                             System.out.println("Login failed.");
                         else
-                            System.out.println("Login successful. Welcome " + currentOwner.getName());
+                            System.out.println("Login successful! Welcome, " + currentOwner.getName() + "!");
 
                         break;
-
 
                     case 3:
                         System.out.println("Exiting system...");
@@ -107,9 +107,9 @@ public class Main {
 
             else {
 
-                System.out.println("\n==============================");
+                System.out.println("\n===========================");
                 System.out.println("        OWNER MENU");
-                System.out.println("==============================");
+                System.out.println("===========================");
                 System.out.println("Logged in as: " + currentOwner.getName());
 
                 System.out.println("1. Add Pets");
@@ -118,30 +118,26 @@ public class Main {
                 System.out.println("4. View Medical Records");
                 System.out.println("5. View Appointment History");
                 System.out.println("6. Logout");
-                System.out.print("Choice: ");
 
-                choice = readInt(sc);
+                int choice = readInt(sc, "Choice: ");
 
                 switch (choice) {
 
                     case 1:
 
-                        System.out.print("How many pets? ");
-                        int count = readInt(sc);
+                        int count = readInt(sc, "How many pets? ");
 
                         for (int i = 0; i < count; i++) {
 
                             System.out.print("Pet Name: ");
                             String petName = sc.nextLine();
 
-                            System.out.print("Age: ");
-                            int age = readInt(sc);
+                            int age = readInt(sc, "Age: ");
 
                             System.out.print("Breed: ");
                             String breed = sc.nextLine();
 
-                            System.out.print("Type (1 Cat / 2 Dog): ");
-                            int type = readInt(sc);
+                            int type = readInt(sc, "Type (1 Cat / 2 Dog): ");
 
                             Animal pet;
 
@@ -151,10 +147,18 @@ public class Main {
                                 pet = new Dog(petName, age, breed);
 
                             currentOwner.adoptPet(pet);
+
+                            // UTILIZE PetProfile
+                            PetProfile profile = new PetProfile(
+                                    pet.getName(),
+                                    currentOwner.getName(),
+                                    pet.getBreed()
+                            );
+
+                            profile.displayProfile();
                         }
 
                         break;
-
 
                     case 2:
 
@@ -179,6 +183,7 @@ public class Main {
                             Appointment appt = new Appointment(date, time);
 
                             appt.createAppointment(currentOwner, pet);
+
                             clinic.schedule(appt);
 
                             vet.treatPet(pet);
@@ -191,14 +196,20 @@ public class Main {
                             System.out.println("\nDiagnosis: " + result[0]);
                             System.out.println("Treatment: " + result[1]);
 
-                            record.addRecord(pet.getName(), result[0], result[1]);
+                            record.addRecord(
+                                    pet.getName(),
+                                    result[0],
+                                    result[1]
+                            );
 
                             System.out.println("\nCare Procedures:");
+
                             vet.feedPet(pet);
                             vet.playWithPet(pet);
                             vet.groomPet(pet);
 
                             System.out.println("\nPet Activity:");
+
                             pet.makeSound();
                             pet.eat();
                             pet.sleep();
@@ -208,39 +219,41 @@ public class Main {
 
                         break;
 
-
                     case 3:
 
-                        System.out.println("\n====== OWNER DASHBOARD ======");
+                        System.out.println("\n===== OWNER DASHBOARD =====");
+
                         System.out.println("Owner: " + currentOwner.getName());
                         System.out.println("Contact: " + currentOwner.getContact());
                         System.out.println("Total Pets: " + currentOwner.getPets().size());
 
                         for (Animal pet : currentOwner.getPets()) {
-                            System.out.println("ID: " + pet.getId()
-                                    + " | " + pet.getName()
-                                    + " | Age: " + pet.getAge()
-                                    + " | Breed: " + pet.getBreed());
+
+                            System.out.println(
+                                    "ID: " + pet.getId()
+                                            + " | " + pet.getName()
+                                            + " | Age: " + pet.getAge()
+                                            + " | Breed: " + pet.getBreed()
+                            );
                         }
 
                         break;
 
-
                     case 4:
+
                         record.viewRecords();
                         break;
 
-
                     case 5:
+
                         Appointment.viewAppointments();
                         break;
 
-
                     case 6:
-                        System.out.println("Logged out successfully.");
+
+                        System.out.println("Logged out successfully!");
                         currentOwner = null;
                         break;
-
 
                     default:
                         System.out.println("Invalid choice.");
