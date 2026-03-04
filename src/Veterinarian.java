@@ -15,6 +15,12 @@ public class Veterinarian {
     public String getName() {
         return name;
     }
+    public int getId(){
+        return id;
+    }
+    public String getContact(){
+        return contact;
+    }
 
     public void treatPet(Animal pet) {
         System.out.println("Treating " + pet.getName());
